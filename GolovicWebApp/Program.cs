@@ -1,3 +1,6 @@
+using GolovicWebApp.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace GolovicWebApp
 {
     public class Program
@@ -7,7 +10,11 @@ namespace GolovicWebApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(connectionString));
             builder.Services.AddControllersWithViews();
+         
 
             var app = builder.Build();
 
