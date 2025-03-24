@@ -9,6 +9,7 @@ namespace GolovicWebApp.Data
         {
         }
         public DbSet<PortfolioItem>PortfolioItems { get; set; }
+        public DbSet<ContactMessage> ContactMessages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

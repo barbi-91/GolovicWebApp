@@ -1,6 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Portfolio";
-}
+﻿@model IEnumerable<GolovicWebApp.Models.PortfolioItem>
 
-<h2>@ViewData["Title"]</h2>
-<p>Ovdje će biti prikazani projekti.</p>
+
+<h1>Portfolio</h1>
+<div class="portfolio-items">
+    @foreach (var item in Model)
+    {
+        <div class="portfolio-item">
+            <img src="@item.ImageUrl" alt="@item.Name" this.src='/images/default.jpg' ; />
+            <h2>@item.Name</h2>
+            <p>@item.Description</p>
+            <a href="@item.ProjectUrl" target="_blank">View Project</a>
+        </div>
+    }
+</div>
