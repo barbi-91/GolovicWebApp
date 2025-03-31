@@ -1,5 +1,6 @@
 using GolovicWebApp.Data;
 using Microsoft.EntityFrameworkCore;
+using GolovicWebApp.Services;
 
 namespace GolovicWebApp
 {
@@ -13,8 +14,12 @@ namespace GolovicWebApp
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            // Register EmailSettings and EmailService
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.AddTransient<EmailService>(); // Using Transient to ensure a new instance for each request
+
             builder.Services.AddControllersWithViews();
-         
 
             var app = builder.Build();
 
@@ -22,7 +27,6 @@ namespace GolovicWebApp
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
